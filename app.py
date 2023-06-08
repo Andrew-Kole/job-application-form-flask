@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 import typing
 import os
+from datetime import datetime
 
 load_dotenv()
 SECRET_KEY: typing.Final = os.getenv("SECRET_KEY")
@@ -31,7 +32,14 @@ def index():
         last_name = request.form["last_name"]
         email = request.form["email"]
         date = request.form["date"]
+        date_obj = datetime.strptime(date, "%Y-%m-%d")
         occupation = request.form["occupation"]
+
+        form = Form(first_name=first_name, last_name=last_name,
+                    email=email, date=date_obj, occupation=occupation)
+
+        db.session.add(form)
+        db.session.commit()
 
     return render_template("index.html")
 
