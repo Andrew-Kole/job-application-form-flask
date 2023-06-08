@@ -24,7 +24,6 @@ class Form(db.Model):
     occupation = db.Column(db.String(80))
 
 
-
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
@@ -34,8 +33,8 @@ def index():
         date = request.form["date"]
         occupation = request.form["occupation"]
 
-
     return render_template("index.html")
+
 
 if __name__ == "__main__":
     with app.app_context():
